@@ -1,10 +1,16 @@
 from flask import Flask , jsonify
 from flask_cors import CORS
+import yaml
 
 app= Flask(__name__)
 
 # applying CORS 
 CORS(app)
+
+def load_experience_config():
+    """Load experience data from YAML configuration file"""
+    with open('config/experience.yaml', 'r') as file:
+        return yaml.safe_load(file)
 
 
 @app.route('/generate',methods=['GET'])
