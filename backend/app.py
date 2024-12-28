@@ -23,7 +23,7 @@ def load_experience_config():
 
 @app.route('/generate',methods=['GET'])
 def generate_resume_coverletter():
-    return jsonify({"data":"successful"})
+    return jsonify({"data":load_experience_config()})
 
 
 if __name__=="__main__":
