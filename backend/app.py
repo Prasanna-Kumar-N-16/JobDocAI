@@ -10,12 +10,15 @@ CORS(app)
 
 BASE_DIR = Path(__file__).parent.parent
 
-print(BASE_DIR)
 
 def load_experience_config():
     """Load experience data from YAML configuration file"""
-    with open('config/experience.yaml', 'r') as file:
-        return yaml.safe_load(file)
+    yaml_path = BASE_DIR / 'config' / 'experience.yaml'
+    try:
+        with open(yaml_path, 'r') as file:
+            return yaml.safe_load(file)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Experience config not found at {yaml_path}")
 
 
 @app.route('/generate',methods=['GET'])
