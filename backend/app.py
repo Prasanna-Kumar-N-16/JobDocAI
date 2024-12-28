@@ -1,11 +1,16 @@
 from flask import Flask , jsonify
 from flask_cors import CORS
 import yaml
+from pathlib import Path 
 
 app= Flask(__name__)
 
 # applying CORS 
 CORS(app)
+
+BASE_DIR = Path(__file__).parent.parent
+
+print(BASE_DIR)
 
 def load_experience_config():
     """Load experience data from YAML configuration file"""
