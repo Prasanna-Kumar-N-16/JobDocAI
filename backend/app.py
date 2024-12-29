@@ -1,4 +1,4 @@
-from flask import Flask , jsonify
+from flask import Flask , jsonify , request
 from flask_cors import CORS
 import yaml , os
 from dotenv import load_dotenv
@@ -29,8 +29,10 @@ def load_experience_config():
         raise FileNotFoundError(f"Experience config not found at {yaml_path}")
 
 
-@app.route('/generate',methods=['GET'])
+@app.route('/generate',methods=['POST'])
 def generate_resume_coverletter():
+    data = request.json
+    job_desc = data.get('jobDescription')
     return jsonify({"data":load_experience_config()})
 
 
