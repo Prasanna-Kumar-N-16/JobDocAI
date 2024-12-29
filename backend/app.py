@@ -1,6 +1,7 @@
 from flask import Flask , jsonify
 from flask_cors import CORS
 import yaml
+from dotenv import load_dotenv
 from pathlib import Path 
 
 app= Flask(__name__)
@@ -9,6 +10,10 @@ app= Flask(__name__)
 CORS(app)
 
 BASE_DIR = Path(__file__).parent.parent
+
+# Load environment variables from the config directory
+env_path = BASE_DIR / 'config' / '.env'
+load_dotenv(env_path)
 
 
 def load_experience_config():
