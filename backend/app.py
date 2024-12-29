@@ -1,8 +1,9 @@
 from flask import Flask , jsonify
 from flask_cors import CORS
-import yaml
+import yaml , os
 from dotenv import load_dotenv
 from pathlib import Path 
+import openai
 
 app= Flask(__name__)
 
@@ -14,6 +15,8 @@ BASE_DIR = Path(__file__).parent.parent
 # Load environment variables from the config directory
 env_path = BASE_DIR / 'config' / '.env'
 load_dotenv(env_path)
+
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
 
 def load_experience_config():
