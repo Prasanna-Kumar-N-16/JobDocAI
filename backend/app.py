@@ -33,7 +33,15 @@ def load_experience_config():
 def generate_resume_coverletter():
     data = request.json
     job_desc = data.get('jobDescription')
-    return jsonify({"data":load_experience_config()})
+    user_exp=load_experience_config()
+    resume_response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[
+            {"role": "system", "content": "You are an expert career coach."},
+            {"role": "user", "content": f"Create a resume based on: {user_exp} for the job: {job_desc}"}
+        ]
+    )
+    return jsonify({"data":resume_response})
 
 
 if __name__=="__main__":
