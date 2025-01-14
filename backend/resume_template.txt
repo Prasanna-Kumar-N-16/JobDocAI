@@ -1,0 +1,15 @@
+Name: {name}
+Email: {email}
+Phone: {phone}
+
+Objective:
+{objective}
+
+Education:
+{education}
+
+Experience:
+{experience}
+
+Skills:
+{skills}
