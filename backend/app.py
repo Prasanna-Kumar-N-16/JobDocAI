@@ -72,7 +72,7 @@ def generate_resume_coverletter():
 
     try:
         # Call the OpenAI Chat API
-        resume_response = openai.ChatCompletion.create(
+        generated_text = openai.ChatCompletion.create(
             model="gpt-4",
             messages=[
                 {"role": "system", "content": "You are an expert career coach and professional resume writer."},
@@ -80,9 +80,19 @@ def generate_resume_coverletter():
             ]
         )
 
-        # Extract the response text
-        generated_text = resume_response['choices'][0]['message']['content']
-        return jsonify({"data": generated_text})
+        # Split the generated text into resume and cover letter
+        resume_start = generated_text.find('[RESUME]')
+        resume_end = generated_text.find('[/RESUME]')
+        cover_letter_start = generated_text.find('[COVER_LETTER]')
+        cover_letter_end = generated_text.find('[/COVER_LETTER]')
+
+        updated_resume = generated_text[resume_start+8:resume_end].strip()
+        cover_letter = generated_text[cover_letter_start+14:cover_letter_end].strip()
+
+        return jsonify({
+            "resume": updated_resume,
+            "coverLetter": cover_letter
+        })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
