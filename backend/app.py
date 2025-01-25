@@ -29,25 +29,6 @@ def load_experience_config():
     except FileNotFoundError:
         raise FileNotFoundError(f"Experience config not found at {yaml_path}")
 
-@app.route('/generate', methods=['GET'])
-def generate_resume_coverletter():
-    user_data = {
-        "name": "John Doe",
-        "email": "john.doe@example.com",
-        "phone": "123-456-7890",
-        "objective": "To secure a software engineering position.",
-        "education": "B.Sc. in Computer Science, XYZ University, 2022",
-        "experience": "Software Engineer at ABC Corp (2022-2023)",
-        "skills": "Python, Java, Flask, React"
-    }
-
-    with open('resume_template.txt', 'r') as file:
-        template = Template(file.read())
-
-    # Render resume
-    resume = template.render(user_data)
-    print(resume)
-
 @app.route('/generate', methods=['POST'])
 def generate_resume_coverletter():
     data = request.json
