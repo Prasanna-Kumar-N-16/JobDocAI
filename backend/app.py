@@ -35,6 +35,41 @@ def generate_resume_coverletter():
     job_desc = data.get('jobDescription')
     user_exp = load_experience_config()
 
+    # Load resume template
+    # Create a base resume string from user_exp
+    base_resume = f"""
+    Name: {user_exp.get('name', '')}
+    Email: {user_exp.get('email', '')}
+    Phone: {user_exp.get('phone', '')}
+    Objective: {user_exp.get('objective', '')}
+    Education: {user_exp.get('education', '')}
+    Experience: {user_exp.get('experience', '')}
+    Skills: {user_exp.get('skills', '')}
+    """
+
+    prompt = f"""
+    Given the following base resume:
+
+    {base_resume}
+
+    And the job description:
+
+    {job_desc}
+
+    Please provide:
+    1. An updated resume tailored to the job description.
+    2. A cover letter for this job application.
+
+    Format the response as follows:
+    [RESUME]
+    (Updated resume content here)
+    [/RESUME]
+
+    [COVER_LETTER]
+    (Cover letter content here)
+    [/COVER_LETTER]
+    """
+
     try:
         # Call the OpenAI Chat API
         resume_response = openai.ChatCompletion.create(
