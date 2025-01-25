@@ -75,8 +75,8 @@ def generate_resume_coverletter():
         resume_response = openai.ChatCompletion.create(
             model="gpt-4",
             messages=[
-                {"role": "system", "content": "You are an expert career coach."},
-                {"role": "user", "content": f"Create a resume based on: {user_exp} for the job: {job_desc}"}
+                {"role": "system", "content": "You are an expert career coach and professional resume writer."},
+                {"role": "user", "content": prompt}
             ]
         )
 
