@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "vite --open",
-    "deploy:prod": "npm run build && npm run preview",
-    "deploy:dev": "vite build --mode development && npm run preview",
-    "build": "cross-env NODE_OPTIONS='--max-old-space-size=8192' vite build"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "keywords": [],
   "author": "",
