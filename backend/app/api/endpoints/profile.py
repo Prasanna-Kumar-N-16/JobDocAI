@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException
+from typing import Dict
 from app.models.user_profile import UserProfile
 
 router = APIRouter()
@@ -12,7 +13,7 @@ async def create_profile(profile: UserProfile):
     if profile.email in profiles_db:
         raise HTTPException(status_code=400, detail="Profile already exists")
     
-    profiles_db[profile.email] = profile.dict()
+    profiles_db[profile.email] = profile  # Store UserProfile directly
     return {"message": "Profile created successfully!"}
 
 # Get profile by email
@@ -23,7 +24,7 @@ async def get_profile(email: str):
     
     return profiles_db[email]
 
-# Get profiles
+# Get all profiles
 @router.get("/", response_model=Dict[str, UserProfile]) 
 async def get_profiles():
     return profiles_db
@@ -34,7 +35,7 @@ async def update_profile(email: str, profile: UserProfile):
     if email not in profiles_db:
         raise HTTPException(status_code=404, detail="Profile not found")
     
-    profiles_db[email] = profile.dict()
+    profiles_db[email] = profile  # Update directly
     return {"message": "Profile updated successfully!"}
 
 # Delete profile
