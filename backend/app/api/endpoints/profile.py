@@ -4,7 +4,7 @@ from app.models.user_profile import UserProfile
 router = APIRouter()
 
 # Temporary in-memory storage (Replace with DB later)
-profiles_db = {}
+profiles_db: Dict[str, UserProfile] = {}
 
 # Create a new profile
 @router.post("/", response_model=dict)
@@ -22,6 +22,11 @@ async def get_profile(email: str):
         raise HTTPException(status_code=404, detail="Profile not found")
     
     return profiles_db[email]
+
+# Get profiles
+@router.get("/", response_model=Dict[str, UserProfile]) 
+async def get_profiles():
+    return profiles_db
 
 # Update profile
 @router.put("/{email}", response_model=dict)
